@@ -21,7 +21,6 @@ import (
 	"net"
 
 	"github.com/pkg/errors"
-
 	"sigs.k8s.io/cluster-api-provider-vsphere/pkg/cloud/vsphere/constants"
 	"sigs.k8s.io/cluster-api-provider-vsphere/pkg/cloud/vsphere/context"
 	"sigs.k8s.io/cluster-api-provider-vsphere/pkg/cloud/vsphere/services/certificates"
@@ -50,6 +49,10 @@ const (
 
 	// the cloud config path read by the cloud provider
 	cloudConfigPath = "/etc/kubernetes/vsphere.conf"
+)
+
+var (
+	certDir = "/etc/kubernetes/pki"
 )
 
 // Create creates a new machine.
@@ -147,6 +150,9 @@ func generateUserData(ctx *context.MachineContext, bootstrapToken string) ([]byt
 				return nil, err
 			}
 
+			if ctx.ClusterConfig.ClusterConfiguration.CertificatesDir != "" {
+				certDir = ctx.ClusterConfig.ClusterConfiguration.CertificatesDir
+			}
 			userData, err := userdata.JoinControlPlane(&userdata.ContolPlaneJoinInput{
 				SSHAuthorizedKeys: ctx.ClusterConfig.SSHAuthorizedKeys,
 				CACert:            string(ctx.ClusterConfig.CAKeyPair.Cert),
@@ -159,6 +165,7 @@ func generateUserData(ctx *context.MachineContext, bootstrapToken string) ([]byt
 				SaKey:             string(ctx.ClusterConfig.SAKeyPair.Key),
 				CloudConfig:       cloudConfig,
 				JoinConfiguration: joinConfigurationYAML,
+				CertDir:           certDir,
 			})
 			if err != nil {
 				return nil, err
@@ -240,6 +247,7 @@ func generateUserData(ctx *context.MachineContext, bootstrapToken string) ([]byt
 				CloudConfig:          cloudConfig,
 				ClusterConfiguration: clusterConfigYAML,
 				InitConfiguration:    initConfigYAML,
+				CertDir:              certDir,
 			})
 			if err != nil {
 				return nil, err

@@ -51,56 +51,56 @@ public-network = "{{ .Network }}"
 - "{{.}}"{{end}}{{end}}
 
 write_files:
--   path: /etc/kubernetes/pki/ca.crt
+-   path: /etc/test/pki/ca.crt
     encoding: "base64"
     owner: root:root
     permissions: '0640'
     content: |
       {{.CACert | Base64Encode}}
 
--   path: /etc/kubernetes/pki/ca.key
+-   path: /etc/test/pki/ca.key
     encoding: "base64"
     owner: root:root
     permissions: '0600'
     content: |
       {{.CAKey | Base64Encode}}
 
--   path: /etc/kubernetes/pki/etcd/ca.crt
+-   path: /etc/test/pki/etcd/ca.crt
     encoding: "base64"
     owner: root:root
     permissions: '0640'
     content: |
       {{.EtcdCACert | Base64Encode}}
 
--   path: /etc/kubernetes/pki/etcd/ca.key
+-   path: /etc/test/pki/etcd/ca.key
     encoding: "base64"
     owner: root:root
     permissions: '0600'
     content: |
       {{.EtcdCAKey | Base64Encode}}
 
--   path: /etc/kubernetes/pki/front-proxy-ca.crt
+-   path: /etc/test/pki/front-proxy-ca.crt
     encoding: "base64"
     owner: root:root
     permissions: '0640'
     content: |
       {{.FrontProxyCACert | Base64Encode}}
 
--   path: /etc/kubernetes/pki/front-proxy-ca.key
+-   path: /etc/test/pki/front-proxy-ca.key
     encoding: "base64"
     owner: root:root
     permissions: '0600'
     content: |
       {{.FrontProxyCAKey | Base64Encode}}
 
--   path: /etc/kubernetes/pki/sa.pub
+-   path: /etc/test/pki/sa.pub
     encoding: "base64"
     owner: root:root
     permissions: '0640'
     content: |
       {{.SaCert | Base64Encode}}
 
--   path: /etc/kubernetes/pki/sa.key
+-   path: /etc/test/pki/sa.key
     encoding: "base64"
     owner: root:root
     permissions: '0600'
@@ -116,8 +116,8 @@ write_files:
 
 -   path: /tmp/kubeadm.yaml
     owner: root:root
-    permissions: '0640'
-    content: |
+	permissions: '0640'
+	content: |
       ---
 {{.ClusterConfiguration | Indent 6}}
       ---
@@ -133,56 +133,56 @@ kubeadm:
 - "{{.}}"{{end}}{{end}}
 
 write_files:
--   path: /etc/kubernetes/pki/ca.crt
+-   path: /etc/test/pki/ca.crt
     encoding: "base64"
     owner: root:root
     permissions: '0640'
     content: |
       {{.CACert | Base64Encode}}
 
--   path: /etc/kubernetes/pki/ca.key
+-   path: /etc/test/pki/ca.key
     encoding: "base64"
     owner: root:root
     permissions: '0600'
     content: |
       {{.CAKey | Base64Encode}}
 
--   path: /etc/kubernetes/pki/etcd/ca.crt
+-   path: /etc/test/pki/etcd/ca.crt
     encoding: "base64"
     owner: root:root
     permissions: '0640'
     content: |
       {{.EtcdCACert | Base64Encode}}
 
--   path: /etc/kubernetes/pki/etcd/ca.key
+-   path: /etc/test/pki/etcd/ca.key
     encoding: "base64"
     owner: root:root
     permissions: '0600'
     content: |
       {{.EtcdCAKey | Base64Encode}}
 
--   path: /etc/kubernetes/pki/front-proxy-ca.crt
+-   path: /etc/test/pki/front-proxy-ca.crt
     encoding: "base64"
     owner: root:root
     permissions: '0640'
     content: |
       {{.FrontProxyCACert | Base64Encode}}
 
--   path: /etc/kubernetes/pki/front-proxy-ca.key
+-   path: /etc/test/pki/front-proxy-ca.key
     encoding: "base64"
     owner: root:root
     permissions: '0600'
     content: |
       {{.FrontProxyCAKey | Base64Encode}}
 
--   path: /etc/kubernetes/pki/sa.pub
+-   path: /etc/test/pki/sa.pub
     encoding: "base64"
     owner: root:root
     permissions: '0640'
     content: |
       {{.SaCert | Base64Encode}}
 
--   path: /etc/kubernetes/pki/sa.key
+-   path: /etc/test/pki/sa.key
     encoding: "base64"
     owner: root:root
     permissions: '0600'
@@ -228,6 +228,7 @@ type ControlPlaneInput struct {
 	CloudConfig          string
 	ClusterConfiguration string
 	InitConfiguration    string
+	CertDir              string
 }
 
 // ContolPlaneJoinInput defines context to generate controlplane instance user data for controlplane node join.
@@ -248,6 +249,7 @@ type ContolPlaneJoinInput struct {
 	ELBAddress        string
 	CloudConfig       string
 	JoinConfiguration string
+	CertDir           string
 }
 
 // CloudConfigInput defines parameters required to generate the
