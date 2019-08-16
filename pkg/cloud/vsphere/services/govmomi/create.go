@@ -51,9 +51,7 @@ const (
 	cloudConfigPath = "/etc/kubernetes/vsphere.conf"
 )
 
-var (
-	certDir = "/etc/kubernetes/pki"
-)
+var certDir = "/etc/kubernetes/pki"
 
 // Create creates a new machine.
 func Create(ctx *context.MachineContext, bootstrapToken string) error {
@@ -153,6 +151,7 @@ func generateUserData(ctx *context.MachineContext, bootstrapToken string) ([]byt
 			if ctx.ClusterConfig.ClusterConfiguration.CertificatesDir != "" {
 				certDir = ctx.ClusterConfig.ClusterConfiguration.CertificatesDir
 			}
+
 			userData, err := userdata.JoinControlPlane(&userdata.ContolPlaneJoinInput{
 				SSHAuthorizedKeys: ctx.ClusterConfig.SSHAuthorizedKeys,
 				CACert:            string(ctx.ClusterConfig.CAKeyPair.Cert),

@@ -51,56 +51,56 @@ public-network = "{{ .Network }}"
 - "{{.}}"{{end}}{{end}}
 
 write_files:
--   path: /etc/test/pki/ca.crt
+-   path: {{ .CertDir }}/ca.crt
     encoding: "base64"
     owner: root:root
     permissions: '0640'
     content: |
       {{.CACert | Base64Encode}}
 
--   path: /etc/test/pki/ca.key
+-   path: {{ .CertDir }}/ca.key
     encoding: "base64"
     owner: root:root
     permissions: '0600'
     content: |
       {{.CAKey | Base64Encode}}
 
--   path: /etc/test/pki/etcd/ca.crt
+-   path: {{ .CertDir }}/etcd/ca.crt
     encoding: "base64"
     owner: root:root
     permissions: '0640'
     content: |
       {{.EtcdCACert | Base64Encode}}
 
--   path: /etc/test/pki/etcd/ca.key
+-   path: {{ .CertDir }}/etcd/ca.key
     encoding: "base64"
     owner: root:root
     permissions: '0600'
     content: |
       {{.EtcdCAKey | Base64Encode}}
 
--   path: /etc/test/pki/front-proxy-ca.crt
+-   path: {{ .CertDir }}/front-proxy-ca.crt
     encoding: "base64"
     owner: root:root
     permissions: '0640'
     content: |
       {{.FrontProxyCACert | Base64Encode}}
 
--   path: /etc/test/pki/front-proxy-ca.key
+-   path: {{ .CertDir }}/front-proxy-ca.key
     encoding: "base64"
     owner: root:root
     permissions: '0600'
     content: |
       {{.FrontProxyCAKey | Base64Encode}}
 
--   path: /etc/test/pki/sa.pub
+-   path: {{ .CertDir }}/sa.pub
     encoding: "base64"
     owner: root:root
     permissions: '0640'
     content: |
       {{.SaCert | Base64Encode}}
 
--   path: /etc/test/pki/sa.key
+-   path: {{ .CertDir }}/sa.key
     encoding: "base64"
     owner: root:root
     permissions: '0600'
@@ -133,56 +133,56 @@ kubeadm:
 - "{{.}}"{{end}}{{end}}
 
 write_files:
--   path: /etc/test/pki/ca.crt
+-   path: {{ .CertDir }}/ca.crt
     encoding: "base64"
     owner: root:root
     permissions: '0640'
     content: |
       {{.CACert | Base64Encode}}
 
--   path: /etc/test/pki/ca.key
+-   path: {{ .CertDir }}/ca.key
     encoding: "base64"
     owner: root:root
     permissions: '0600'
     content: |
       {{.CAKey | Base64Encode}}
 
--   path: /etc/test/pki/etcd/ca.crt
+-   path: {{ .CertDir }}/etcd/ca.crt
     encoding: "base64"
     owner: root:root
     permissions: '0640'
     content: |
       {{.EtcdCACert | Base64Encode}}
 
--   path: /etc/test/pki/etcd/ca.key
+-   path: {{ .CertDir }}/etcd/ca.key
     encoding: "base64"
     owner: root:root
     permissions: '0600'
     content: |
       {{.EtcdCAKey | Base64Encode}}
 
--   path: /etc/test/pki/front-proxy-ca.crt
+-   path: {{ .CertDir }}/front-proxy-ca.crt
     encoding: "base64"
     owner: root:root
     permissions: '0640'
     content: |
       {{.FrontProxyCACert | Base64Encode}}
 
--   path: /etc/test/pki/front-proxy-ca.key
+-   path: {{ .CertDir }}/front-proxy-ca.key
     encoding: "base64"
     owner: root:root
     permissions: '0600'
     content: |
       {{.FrontProxyCAKey | Base64Encode}}
 
--   path: /etc/test/pki/sa.pub
+-   path: {{ .CertDir }}/sa.pub
     encoding: "base64"
     owner: root:root
     permissions: '0640'
     content: |
       {{.SaCert | Base64Encode}}
 
--   path: /etc/test/pki/sa.key
+-   path: {{ .CertDir }}/sa.key
     encoding: "base64"
     owner: root:root
     permissions: '0600'
